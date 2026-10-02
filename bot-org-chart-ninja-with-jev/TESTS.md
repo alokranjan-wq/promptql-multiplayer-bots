@@ -31,9 +31,11 @@ These are review/launch scenarios, not a claim that the research bot has already
 
 ## Launch prompt
 
-- Short, polished user-facing value + company input, optional LinkedIn URL/list/scope and missing-input guidance.
+- Preserve the approved seed copy: company name, optional names/email list, sourced probabilistic org chart, Google X-Ray, Jev, diagrams, people summary chart and profile summaries.
+- Keep `Company: <Use mine if left blank; ask me first.>` and `Names / email list: Optional` as literal source text. The company fallback still requires consent under fallback.md.
+- The Repo line points to this package's stable GitHub directory, where README.md links to BOT.md and the portable guides.
 - Operational consent rules, sizing gates, APIs and error handling stay in BOT.md/fallback.md/Wikis rather than bloating PROMPT.md.
-- One stable link to the full workflow; no raw angle-bracket placeholders swallowed by rendered Markdown.
+- Escape angle brackets when rendering the seed or wrapping each line in composer paragraphs; preserve the literal source when copied or downloaded.
 
 ## Research and identity
 

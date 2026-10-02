@@ -1,9 +1,8 @@
-# Org Chart Ninja
+Turn a company name—and optionally a names/email list—into a sourced, probabilistic org chart.
 
-Map who does what—and who likely reports to whom—with Jev-powered org charts, people insights and LinkedIn summaries.
+Research public LinkedIn profiles with Google X-Ray, use Jev to estimate departments, functions and direct managers, and explore the results through diagrams, a people summary chart and profile summaries.
 
-Share a **company name**. Optional: LinkedIn company URL, names/email list, or a city/region/function to focus on.
+Company: <Use mine if left blank; ask me first.>
+Names / email list: Optional
 
-Missing inputs? Guide me to a company and research scope—no list needed.
-
-Use the [full workflow and guides](https://raw.githubusercontent.com/hasura/promptql-multiplayer-bots/main/bot-org-chart-ninja-with-jev/BOT.md).
+Repo: https://github.com/hasura/promptql-multiplayer-bots/tree/main/bot-org-chart-ninja-with-jev
