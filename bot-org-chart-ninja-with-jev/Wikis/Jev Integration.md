@@ -12,6 +12,17 @@ Jev is TypeSafe AI's System One model: evidence in, typed probabilistic decision
 - Check availability in the current project; bundled documentation does not guarantee a working provider.
 - References: https://docs.typesafe.ai/api and https://github.com/typesafe-ai/skills.
 
+## Research-first loop contract
+
+Before **any** grouping/department/function/manager call, require `research_complete`, a persisted full-scope extraction/summary table, and frozen/versioned department, function and people ontologies. Do not use Jev to paper over unfinished X-Ray research.
+
+1. Loop through all in-scope people with department/function questions using frozen options.
+2. Persist each answer or explicit unavailable status; finish/account for the entire pass.
+3. Loop through all people for managers using the stable people registry, relevant department/function results and bounded candidate sets.
+4. Validate all decisions and the graph before drawing the standalone full-roster canvas.
+
+Use bounded concurrency, stable question IDs, bounded retries and resumable persisted progress. A request/batch size is not a people cap: never stop after 25 when 250 were agreed. Do not re-run successful questions on resume or silently mutate option sets.
+
 ## A Choice request
 
 Use one state per person and two independent department/function questions. Run manager classification separately with candidate descriptions.
@@ -74,7 +85,8 @@ This is an **illustrative response**, not a Jev call from this package.
 - Selected option probability: `answer["probabilities"][answer["choice"]]`. The example shows **82%**, not 71%.
 - `confidence` describes distribution concentration; it is neither correctness nor a calibrated factual-certainty score.
 - Probabilities are model estimates conditional on supplied evidence and the offered options. A narrow or biased manager candidate set can distort them.
-- Preserve the full returned distribution and separate confidence; show top alternatives in detail views.
+- Preserve the full distribution and separate confidence. Show both selected-manager probability and **Jev confidence next to each scored person's reporting line**, adjacent to their name; show alternatives in details.
+- In the illustrative example, render `Option: 82% · Jev confidence: 71%`, not one blended “confidence/probability” number. Explain concentration semantics in the visible legend. Assumed/unscored cases display N/A without invented metrics.
 - Typed shape does not guarantee true facts.
 - `Board — assumed` has no Jev response and no probability. Never manufacture 100%.
 - For a missing or malformed answer, set decision status `Unavailable`; do not turn a missing field into zero or a default guess.

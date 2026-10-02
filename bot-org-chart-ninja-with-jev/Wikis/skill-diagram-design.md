@@ -10,18 +10,20 @@ License notice: [MIT](../licenses/diagram-design-MIT.txt).
 
 Who plausibly belongs where, who may report to whom, and which relationships are weak, missing, or only assumed. Visual polish must not overstate evidence.
 
-Read the ontology and graph before designing. Prefer a table if a diagram adds no clarity.
+Read the completed research table, frozen department/function/people ontologies and validated graph before designing. A table complements but never replaces this task's required full-roster canvas.
 
 ## Layout and complexity
 
 Adapt the upstream Org Chart / Responsibility Map grammar:
 
-- Overview first; separate department/pod detail charts.
-- At most 12 visible org nodes and four tiers per chart.
-- At most five direct reports displayed under one parent before subdivision; if many specialists exist, introduce visibly labelled layout groups or split views. Do not invent reporting relationships.
+- Publish a **separate org-chart artifact/page** titled exactly **Probabilistic Org Chat with Jev**, linked to the people/profile explorer and sharing its persisted dataset.
+- Use one huge zoomable/pannable canvas for **all in-scope people, up to 250 per approved cohort**. No 12-node, four-tier, or five-report display cap: those small-diagram heuristics do not apply to this full-roster canvas.
+- Default to all people included; provide fit-all, zoom, pan, reset and search/focus. Fit-all may zoom out, but users must be able to zoom in to readable names/line labels. Do not shrink text permanently to cram 250 people into a small card.
+- Large fan-out and deep trees use expanded spacing, buses and marked layout-only groups. Never hide specialists, cap reports, collapse away people by default, or invent managers.
+- Optional department/pod views supplement the full canvas. For approved 251–1,000-person grouping, each cohort has its own full canvas and group/scope subtitle; do not stitch them into an invented company-wide tree.
 - Orthogonal routes: vertical drop, horizontal bus, vertical drop to each child. No diagonal connector spaghetti.
 - One focal accent node; at most two callouts. Put the legend outside the node area.
-- Name, terse current role/scope and a legible probability label in each scored person node.
+- Name, terse role/scope and legible selected-manager probability plus separate Jev confidence at each scored reporting line, adjacent to the person.
 - Full biography, alternatives and evidence belong in a detail panel, not inside a node.
 - Label outside-roster managers and uncertainty; never hide gaps to make a perfect pyramid.
 
@@ -40,7 +42,9 @@ This package intentionally sharpens the source example's line semantics:
 
 Do not make an inference solid because its model probability exceeds a threshold. Keep identity status, edge evidence, selected-option probability, and distribution confidence separate.
 
-Show beside a name: `Manager option: 76% (Jev estimate)`; when space is limited, `M: 76%` with a visible legend. For board/default assumptions show `Assumed`, never `100%`. The number belongs to the reporting choice, not the person's identity or the probability the whole chart is correct.
+Show at the reporting-line endpoint adjacent to each name: `Manager option: 76% · Jev confidence: 61%` (illustrative). The first is `probabilities[choice]`; the second is the separate `confidence` value. With limited space, use `M: 76% · C: 61%` and a visible legend/accessible full label. Confidence measures distribution concentration, not correctness. Neither metric scores a person's identity or the whole chart.
+
+For board/default assumptions show `Assumed · Jev confidence: N/A`, never `100%`. For unavailable/unscored cases use explicit status and N/A. Scored unknown/outside choices retain real metrics in their person/uncertainty lane, without false reporting connectors. Every unresolved person remains visible.
 
 ## Editorial restraint
 
@@ -52,10 +56,10 @@ On narrow screens, keep labels readable and pan within the diagram—not the ent
 
 ## Persistence, exports, and checks
 
-- Integrate into the intelligence explorer rather than publishing an unrelated second app.
+- Give the org chart its own artifact/page, linked from the people/profile explorer. Share the same dataset; do not create an unrelated or inconsistent second graph.
 - Persist the researched graph and decisions separately from UI selection/filter state.
 - Check node/label overlap, connector routing, real long names, clipping, contrast, keyboard access, detail panels, and a roughly 390px viewport.
-- Export an explicit complete static state. Include the legend and sourcing/inference caveat.
+- Export the complete unfiltered cohort, not just the current viewport. At 250 people verify 250 distinct person nodes, full title, both metric labels, legend and caveat. Keep any filter/export scope explicit.
 - Self-contained HTML is useful for portable viewing; SVG/PNG are useful for static diagrams. Preserve styles/viewBox and test destination rendering.
 - Bundle necessary assets locally if used, preserve applicable licenses, and do not depend on remote fonts.
 - Optional public sharing requires separate approval and a real privacy review. Fictional demo data is simpler; hidden mappings are not private.

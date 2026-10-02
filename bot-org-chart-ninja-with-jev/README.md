@@ -2,22 +2,28 @@
 
 Link to create new bot: **Pending publication**
 
-Turn a company name—and optionally a names/email list—into a sourced, probabilistic org chart. Research public LinkedIn profiles with Google X-Ray, use Jev to estimate departments, functions and direct managers, and explore the results through diagrams, a people summary chart and profile summaries.
+Turn a company name—and optionally a names/email list—into a sourced, probabilistic org chart. Research public LinkedIn profiles with Google or Exa X-Ray, use Jev to estimate departments, functions and direct managers, and explore the results through diagrams, a people summary chart and profile summaries.
 
 ## Start
 
 Copy [PROMPT.md](PROMPT.md), share the company, optionally add its LinkedIn company URL, and attach a list if available.
 
-Missing company? The bot helps you choose and asks permission. Missing list? No problem—choose a public-research scope; project members are an opt-in fallback only outside Playground.
+Missing company? The bot helps you choose and asks permission. Missing list? No problem—choose a public-research scope for up to **250 people** by default; project members are an opt-in fallback only outside Playground.
 
 ## What you get
 
-- Org overview and department diagrams—or a consented collection of separate group charts—with Jev option probabilities beside names.
+- A separate huge, zoomable full-roster canvas titled **Probabilistic Org Chat with Jev**, with reporting probability **and separate Jev confidence** at each scored person’s reporting line. Approved larger rosters get separate full-cohort canvases.
 - Searchable/filterable people summary chart.
 - LinkedIn career and company-specific summaries, sources and uncertainty.
-- CSV/JSON downloads.
+- CSV/JSON downloads and complete org-canvas export.
 
-These are probabilistic research results, not verified reporting lines or a complete employee directory. Jev must be provisioned on the deployment; Google access and any alternative search integration must be available. Missing dependencies are explained, never hidden.
+These are probabilistic research results, not verified reporting lines or a complete employee directory. Jev must be provisioned on the deployment; at least one working Google or Exa search route must be available. Missing dependencies are explained, never hidden.
+
+## Research first, inference second
+
+**Google or Exa X-Ray → complete extraction/summary table → frozen department, function and people ontologies → Jev loops → validated full-roster canvas.**
+
+All in-scope people are researched or explicitly accounted for before any Jev call, including grouping. The research table retains required fields, summaries, provenance and unknowns. Jev then completes department/function decisions before manager inference; failures are explicit and resumable.
 
 ## Large rosters
 
@@ -25,7 +31,7 @@ These are probabilistic research results, not verified reporting lines or a comp
 - **251–1,000:** choose a narrower city, region, country, function or department—or approve smart grouping and separate charts of up to 250 people each.
 - **Over 1,000:** narrow first. Whole-list grouping is not a workaround.
 
-Jev accepts at most 255 options per Choice question; the workflow counts uncertainty options too.
+Jev accepts at most 255 options per Choice question; the workflow counts uncertainty options too. Its confidence describes distribution concentration, not reporting-line correctness; selected option probability is a different field.
 
 ## Portable context
 
