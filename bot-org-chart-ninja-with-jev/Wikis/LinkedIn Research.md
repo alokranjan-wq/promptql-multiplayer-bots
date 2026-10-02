@@ -12,9 +12,9 @@ Start with the supplied LinkedIn company URL when present; corroborate against o
 
 Build aliases with evidence. Do not collapse a parent and subsidiary into a single employer or manager chain.
 
-## Google X-Ray people queries
+## Google or Exa X-Ray people queries
 
-Use Google searches such as:
+Use LinkedIn-focused X-Ray queries through either available engine; record which one ran:
 
 - `site:linkedin.com/in/ "<full name>" "<company>"`
 - `site:linkedin.com/in/ "<full name>" "<brand>"`
@@ -23,9 +23,9 @@ Use Google searches such as:
 
 A Google search can find publicly indexed LinkedIn profiles without a LinkedIn login. It does not guarantee access to a complete profile. Use URL encoding when constructing search links. Stop at CAPTCHA, access walls, or rate limits rather than bypassing them.
 
-## Disclosed Exa fallback
+## Exa X-Ray route
 
-Exa is a different engine, not Google. The source workflow used provider `__exa-web-search`; some projects/platform docs expose `__exa`. Discover the connected provider in the current project instead of assuming either is universal. Show a connect card only for a genuinely available, self-connectable provider when it is required.
+Exa is a valid primary or fallback X-Ray engine, not Google. The source workflow used provider `__exa-web-search`; some projects/platform docs expose `__exa`. Discover the connected provider in the current project instead of assuming either is universal. Show a connect card only for a genuinely available, self-connectable provider when it is required.
 
 Calls use https://api.exa.ai:
 
@@ -37,6 +37,16 @@ Calls use https://api.exa.ai:
 - Cached profile text from `/contents` is not a live employment check.
 
 Reference: https://exa.ai/docs.
+
+## Complete discovery and extraction before inference
+
+- Default no-list discovery target: **up to 250 unique people**, not 25. Confirm scope/consent; a smaller target requires the user's choice.
+- Use supported paging/batching and multiple company/brand, role/function and location queries. Deduplicate canonical profile identities across results; a search request's result limit does not cap the roster.
+- Record query, engine, scope, result count, duplicate count and stopping reason. Finish at the agreed target or after documented controlled-query exhaustion. Hitting an API/access block is a disclosed block, not evidence of search exhaustion.
+- For supplied rosters, attempt every in-scope person. Retrieve accessible profile evidence, extract required fields and produce sourced career/target-company summaries. Use null/Unknown and labelled cached/snippet evidence instead of inventing data.
+- Persist the **pre-Jev research table** with every required Person/Evidence field from [Research Data Contract](Research%20Data%20Contract.md), including all unresolved people. Leave inferred department/function/manager fields `Not run`.
+- Set `research_complete` only when every in-scope row is processed or explicitly accounted for after bounded attempts. Preserve the table version and coverage counts.
+- Only then draft/freeze department, function and people ontologies. No Jev calls—including grouping—before this checkpoint.
 
 ## Identity matching
 

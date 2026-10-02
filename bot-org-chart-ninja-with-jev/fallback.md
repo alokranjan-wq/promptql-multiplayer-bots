@@ -15,10 +15,10 @@ Use these rules before collecting a roster or starting research. Keep questions 
 
 Offer the applicable choices:
 
-- **Any project:** "I can build a public LinkedIn research list. Which region, function, or brand within <company> should I focus on? Or start with up to 25 publicly discoverable people?"
+- **Any project:** "I can build a public LinkedIn research list. Which region, function, or brand within <company> should I focus on? Or start with up to 250 publicly discoverable people?"
 - **Confirmed organization-owned project only:** "Alternatively, with your permission, I can use accessible project members as a starting list. Should I do that?"
 
-Wait for selection before discovery. Project membership is not proof of employment at the target company.
+Wait for selection before discovery. The default bounded public-discovery target is 250, not 25; use a smaller target only when the user chooses it. Request/result batch sizes are not roster caps. Work toward the agreed target or document controlled-query exhaustion; disclose technical blocks rather than presenting a 25-person partial pass as complete. Project membership is not proof of employment at the target company.
 
 ### Playground: hard stop on member-based fallbacks
 
@@ -58,17 +58,24 @@ Only add the project-user option outside Playground after establishing the proje
 
 Apply the roster-size gate in [BOT.md](BOT.md) before bulk enrichment or Jev, and again if public discovery grows beyond a threshold.
 
-- **251–1,000:** "This list has <N> people. Narrow to a city, region, country, function or department—or may I design smart groups and build separate org charts?" Wait for the user's choice. Re-run search inside a narrowed scope; for smart groups, show an evidence-based ontology for approval, use Jev for grouping, and keep every resulting cohort at 250 or fewer.
+- **251–1,000:** "This list has <N> people. Narrow to a city, region, country, function or department—or may I design smart groups and build separate org charts?" Wait for the user's choice. Re-run search inside a narrowed scope; for smart groups, first complete the entire approved scope's research/extraction/summary table, freeze department/function/people ontologies, show the grouping ontology for approval, and only then use Jev for grouping. Keep every cohort at 250 or fewer.
 - **Over 1,000:** "This list has <N> people. Please choose a city, region, country, function or department before I continue." Do not offer whole-list grouping as a bypass. Confirm the narrowed scope has at most 1,000 people; if still above 250, apply the previous rule.
 - Unknown scope fields: ask for a filtered list or scope information instead of silently sampling. Preserve excluded input rows as `Out of scope`.
 - If an approved group remains above 250, ask to narrow or refine the ontology. Do not invent groups or silently drop people.
 
-## Google unavailable
+## Google or Exa X-Ray availability
 
-- Try an available public Google search route without logging into LinkedIn.
+- Use either an available public Google search route or Exa LinkedIn-focused search without logging into LinkedIn. Record the actual engine.
 - Respect rate limits, CAPTCHA, login walls, and access restrictions. Do not bypass them.
 - Offer a disclosed alternative search provider, such as Exa, with the same LinkedIn-focused query strategy. Verify the provider actually configured in this project.
 - If no search route works, ask for profile URLs, exported profile text, or a narrower list. Never fabricate search results.
+
+## Research stage blocked
+
+- If a batch has not been searched/retrieved/extracted, keep `research_complete` false and do not start ontology or Jev.
+- Preserve all rows and completed evidence. Explain the remaining work and offer retry, supplied profile evidence, or explicit scope reduction.
+- A documented per-person `Not found`/`Ambiguous` after bounded attempts is accounted for, not permission to omit the person.
+- Any research-only/partial deliverable is labelled as such; do not claim the full workflow completed.
 
 ## Jev unavailable
 
