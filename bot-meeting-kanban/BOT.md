@@ -1,0 +1,62 @@
+# Meeting to Kanban Board
+
+Turn one meeting (notes, transcript or a Notion page) into a shared Trello-style kanban board that runs as an app on this bot's VM. Everyone in the room opens the same board and updates their own cards directly; the bot tracks progress from the board, not from chat.
+
+## Input
+
+You need exactly one source for the action items. It can be:
+
+- a link to meeting notes or a transcript (Google Doc, a meeting recorder's share page, a wiki page), or
+- a Notion page link, or
+- notes pasted into the chat, or an uploaded file.
+
+Check the message that pointed you here first. If it already contains a source link or pasted notes next to the instruction to read this file, use that and do not ask again. Any link in that message other than this bot's repository is the source. If a placeholder such as "paste link here" was left unfilled, treat it as blank.
+
+If no source was given, ask for one before doing anything else: a meeting link or a Notion page link, with paste or upload as the fallback. Ask once, then wait.
+
+If reading the source needs an integration that is not connected (Google Docs, Notion, a meeting recorder), ask the user to connect it at that point and continue when it is. Do not ask for integrations up front. If the link cannot be read even after that, say so and offer paste or upload; never invent action items.
+
+Optional inputs the user may add: team member names, a board title, a due-date horizon. If absent, derive them from the source.
+
+## Step 1. Extract the plan
+
+Read the entire source. If it is long, read all of it in parts; do not summarize from a truncated preview.
+
+From it, extract:
+
+- Action items. For each: a short title, a one-line description, owners, priority, workstream, due date if one was stated, and the exact quote from the source that the item comes from.
+  - Priority: p0 = blocking or due within days, p1 = this week, p2 = later.
+  - Workstream: the project, topic or product area the item belongs to. Keep the set small (fewer than ten).
+  - Owners: match names in the source to members of this project where you can; otherwise keep the plain name.
+- Decisions that were made.
+- Open questions that were left unresolved.
+
+Post the extracted plan in chat as a compact table (title, owners, priority, workstream, due) with the decisions and open questions beneath it. Then continue to Step 2 without waiting for a reply. The board is editable, so corrections happen there.
+
+## Step 2. Build the board
+
+Use the reference implementation in the `app/` folder of this bot's repository exactly as it is. Do not rewrite it, redesign it or restyle it. Its look and feel, data model and behaviour are specified in `app/SPEC.md`; the result must match that spec.
+
+1. Fetch the `app/` folder onto your VM, build the frontend and run the backend as a persistent service that restarts on its own, so the board survives VM restarts.
+2. Seed the board data file with what you extracted: a board title (default: the meeting title plus "Board"), the meeting (title, date, source link), the members, the workstreams, the cards, the decisions and the open questions. Follow the sample data file in `app/data/` for the shape.
+3. Member ids should be the project user ids of the people involved when you can resolve them. The app recognises visitors by their PromptQL identity and matches them to a member, so they are never asked who they are. Give each member a distinct colour from the palette in the spec.
+4. Publish the running board as an app artifact of kind web with the readiness check the app exposes, and verify that the app reports ready and that a read and a write round-trip through its API both succeed before telling anyone it is done.
+
+Keep all board data on the VM. The data file is the single source of truth; do not keep a second copy in chat or in another artifact.
+
+## Step 3. Hand over
+
+Post one message with:
+
+- the app artifact,
+- card counts per column and the list of p0 cards with owners,
+- the owners tagged, with one line telling them to update their own cards on the board rather than in chat.
+
+Then offer, without doing them unasked: pinning the board as the room's focus, a daily reminder of open p0 cards, and importing the next meeting into the same board.
+
+## Afterwards
+
+- Importing another meeting: extract again, add only cards that are new, record the new meeting as each new card's source, and never duplicate or reset existing cards.
+- Status questions ("what is open for me?", "what is blocked?"): answer from the board's current data, not from memory of the chat.
+- If the board is unreachable, restart the service rather than rebuilding it. Rebuild only if the files are gone, and reseed from the preserved data file.
+- Any change to columns, fields or styling is out of scope unless the user asks for it explicitly.
